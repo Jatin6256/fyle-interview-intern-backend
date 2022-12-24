@@ -1,3 +1,12 @@
+
+# to increase test coverage
+def test_is_server_ready(client, h_student_1):
+    response = client.get('/',headers=h_student_1)
+
+    assert response.status_code == 200
+    data = response.json
+    assert data['status'] == 'ready'
+
 def test_get_assignments_student_1(client, h_student_1):
     response = client.get(
         '/student/assignments',
@@ -51,6 +60,8 @@ def test_submit_assignment_student_1(client, h_student_1):
             'teacher_id': 2
         })
 
+    print(response)
+    # if assignment is already submitted than it will give status 400
     assert response.status_code == 200
 
     data = response.json['data']
